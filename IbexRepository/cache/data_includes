@@ -1,0 +1,219 @@
+var shuffleSequence = seq("intro", randomize("training"), randomize("training"), rshuffle("critical","filler"));
+
+var defaults = [
+  "Question", {
+    presentHorizontally: true
+  },
+  "Message", {
+    transfer: "keypress"
+    }
+];
+
+define_ibex_controller({
+  name: "PictureQuestion",
+  jqueryWidget: {
+    _init: function () {
+      this.options.transfer = null;
+      this.element.VBox({
+        options: this.options,
+        triggers: [1],
+        children: [
+          "Message", this.options,
+          "Question", this.options,
+        ]
+      });
+    }
+  },
+  properties: { }
+});
+
+
+var items = [
+  ["intro", "Message", {html: "<p>Your aunt is making collages for each member of your extended family."+
+                              "<p>She will ask you to hand her cutouts, one by one."+
+                              "You will first see her description of the cutout she wants. "+
+                              "Press space once you've read the description. You will see a number of photos. Click on the one that matches her description.</p>",
+                        transfer: "click",
+                      consent: "true"},
+            ],
+//training items (12)
+  ["training",
+    "Message", {html: "<p>I need the photo of the black dog.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+                        
+  ["training",
+    "Message", {html: "<p>I need the photo of the grey cat.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the white bird.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the pink flowers.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the green plant.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the pink car.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the red cap.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the brown bag.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the brown chair.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the red book.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the yellow fish.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+  ["training",
+    "Message", {html: "<p>I need the photo of the purple lamp.</p>"},
+    "PictureQuestion", {html: "", as: ["<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                        "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>",
+                      "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>", "<img src=http://files.lab.florianschwarz.net/ibexfiles/Pictures/apple.png>"]}
+  ],
+/**
+//critical items (12)
+  [["critical",1],
+    "Message", {html: "<p>I need the photo of the black dog.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",1],
+    "Message", {html: "<p>I need the photo of the black dog.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",2],
+    "Message", {html: "<p>I need the photo of the grey cat.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",2],
+    "Message", {html: "<p>I need the photo of the grey cat.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",3],
+    "Message", {html: "<p>I need the photo of the white bird.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",3],
+    "Message", {html: "<p>I need the photo of the white bird.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",4],
+    "Message", {html: "<p>I need the photo of the pink flowers.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  [["critical",4],
+    "Message", {html: "<p>I need the photo of the pink flowers.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+//filler items (12)
+  ["filler",
+    "Message", {html: "<p>I need the photo of the red apple.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the white headphones.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the black sheep.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the green frog.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the blue backpack.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the yellow cupcake.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the orange stapler.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the blue bicycle.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the yellow pants.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the blue coat.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the white towel.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+  ["filler",
+    "Message", {html: "<p>I need the photo of the black horse.</p>"},
+    "Question", {html: "",
+                        q: ""}
+  ],
+**/
+];
+
+

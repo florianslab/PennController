@@ -1,0 +1,391 @@
+<html>
+    <script type="text/javascript" src="jquery-3.3.1.min.js"></script> 
+    <script type="text/javascript" src="jquery-ui.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+    <head>
+        <style>
+            body {
+                text-align:center;
+            }
+            #selected{
+                z-index:9999999;
+                position: absolute;
+                border: dashed 2px violet;
+                margin: -2px;
+                display: none;
+            }
+            #selector{
+                border: solid 1px purple;
+                display: none;
+                position: absolute;
+                margin: -1px;
+            }
+            #canvas{
+                position: relative;
+                margin: auto;
+                width: 700px;
+                height: 500px;
+                border:2px dashed #bbb;
+                -moz-border-radius:5px;
+                -webkit-border-radius:5px;
+                border-radius:5px;
+                font:20pt bold,"Vollkorn";
+                color:#bbb;
+            }
+            #canvasTextContainer{
+                padding:25px;
+            }
+            #instructions{
+                width: 30em;
+                text-align: left;
+                margin: auto;
+                color:#aaa;
+                font: 11.5pt bold,"Vollkorn";
+            }
+            ul {
+                width: 30em;
+                margin: auto;
+            }
+            a { text-decoration: none }
+        </style>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+
+        <p class="blank"></p>
+
+        <div id="instructions">Instructions:
+            <ul>
+                <li>Use edges/corner of images/canvas to resize (shift+corner to preserve ratios)</li>
+                <li>Space to resize to original ratio</li>
+                <li>+/- to move to front/back</li>
+                <li>Delete/Backspace to remove image</li>
+            </ul>
+        </div>
+        <p><input id="getCode" value="Get code" type="button" onclick="showCode()" /></p>
+
+        <textarea id="code" style="position: absolute; top: 50px; left: 50px; display: none; z-index: 9999999; width:700px; height:300px;"></textarea>
+        
+
+        <div id="canvas">
+            <div id="canvasTextContainer">
+                <p>Drop Images Here</p>
+                <div id="selector"></div>
+                <div id="selected"></div>
+            </div>
+        </div>
+
+    </body>
+
+
+    <script>
+
+    function showCode() {
+        var code = "canvas("+$(canvasElement).width()+", "+$(canvasElement).height()+")";
+        for (var e in elements) {
+            code += "\n   .put( image('"+elements[e].name+"', "+
+                    elements[e].getWidth()+", "+
+                    elements[e].getHeight()+") , "+
+                    elements[e].getLeft().replace("px","")+", "+
+                    elements[e].getTop().replace("px","")+", "+
+                    elements[e].z+" )";
+        }
+        $("#code").html(code).css("display","block");
+        $("#code").mousedown(function(e){ e.stopPropagation(); })
+    }
+
+    var canvasElement = document.getElementById('canvas');
+    var elements = [];
+    var hoveredElements = [];
+    var selected;
+
+    var shiftDown = false;
+
+
+    function Element(content, name) {
+        var ti = this;
+
+        this.content = content;
+        this.z = elements.length;
+        /*for (var e in elements){
+            if (elements[e].name==name){
+                var suffix = 1;
+                var alreadyExists = false;
+                do {
+                    suffix++;
+                    for (var e2 in elements) {
+                        if (elements[e2].name==name+"-"+suffix)
+                            alreadyExists = true;
+                    }
+                } while (alreadyExists)
+                name = name+"-"+suffix;
+                break;
+            }
+        }*/
+        this.name = name;
+
+        this.getTop = function(){ return $(this.content).css("top"); };
+        this.getLeft = function(){ return $(this.content).css("left"); };
+        this.getWidth = function(){ return $(this.content).width(); };
+        this.getHeight = function(){ return $(this.content).height(); };
+
+        $(content).css({"z-index": this.z, position: "absolute", top: 0, left: 0});
+        content.element = this;
+        
+        canvasElement.appendChild(content);
+
+        setTimeout(function(){ 
+            ti.height = $(content).height();
+            ti.width = $(content).width();
+        }, 1);
+
+        this.select = function(){
+            var doubleClick = false;
+            selected = this;
+            $("#selected").css({
+                display: "block",
+                width: this.getWidth(),
+                height: this.getHeight(),
+                top: this.getTop(),
+                left: this.getLeft()
+            }).mousedown(function(e){
+                if (!doubleClick) {
+                    doubleClick = true;
+                    $("#selected").css("z-index",9999997);
+                    setTimeout(function(){
+                        $("#selected").css("z-index",9999999);
+                        doubleClick = false;
+                    }, 200);
+                }
+                e.stopPropagation();
+            }).resizable({
+                alsoResize: content
+            });
+        };
+
+        return this;
+    }
+
+    
+
+    function previewFile(file) {
+        var image = new Image();
+        var reader  = new FileReader();
+
+        reader.addEventListener("load", function () {
+            image.height = $(canvasElement).height();
+            image.src = reader.result;
+            var element = new Element(image, file.name);
+            elements.push(element);
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } 
+    }
+      
+    function handleDragover(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+    }
+      
+      
+    function handleDrop(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var files = e.dataTransfer.files;
+        var i,f;
+        for (i = 0, f = files[i]; i != files.length; ++i) {
+          previewFile(f);
+        }
+    }
+     
+    if(canvasElement.addEventListener) {
+        canvasElement.addEventListener('dragenter', handleDragover, false);
+        canvasElement.addEventListener('dragover', handleDragover, false);
+        canvasElement.addEventListener('drop', handleDrop, false);
+    }
+
+
+    function highlight(element){
+        if (!element || !(element instanceof Element))
+            return;
+        $("#selector").css({
+            display: "block",
+            "z-index": 9999998,
+            width: element.getWidth(),
+            height: element.getHeight(),
+            top: element.getTop(),
+            left: element.getLeft()
+        }).mousedown(function(e){
+            if (!selected || selected != element) {
+                element.select();
+            }
+        })[0].element = element;
+    }
+
+
+    var dragging = false;
+
+    $(document).ready(function(){
+
+        $("#selected").draggable({
+            drag: function(event, ui){
+                $("#selector").css("display","none");
+                dragging = true;
+                $(selected.content).css({left: ui.position.left, top: ui.position.top});
+            },
+            stop: function(){
+                dragging = false;
+            }
+        });
+        $("#selector").draggable({
+            drag: function(event, ui){
+                $(selected.content).css({left: ui.position.left, top: ui.position.top});
+                $("#selector").css("display","none");
+                $("#selected").css({left: ui.position.left, top: ui.position.top});
+            }
+        });
+
+        var pointerX = 0 , pointerY = 0;
+
+        $(document).mousemove(function(e){
+
+            if (dragging)
+                return;
+
+            var tmpX = pointerX, tmpY = pointerY;
+            pointerX = e.pageX - $(canvasElement).offset().left,
+            pointerY = e.pageY - $(canvasElement).offset().top;
+
+            if (pointerX-tmpX < 2 && tmpX-pointerX < 2 && pointerY-tmpY < 2 && tmpY-pointerY < 2)
+                return;
+
+            hoveredElements = [];
+            for (var el in elements){
+                var xOffset = pointerX-elements[el].getLeft().replace("px",""),
+                    yOffset = pointerY-elements[el].getTop().replace("px","");
+                if (xOffset>=0 && xOffset<=elements[el].getWidth() && 
+                    yOffset>=0 && yOffset<=elements[el].getHeight())
+                    hoveredElements.push(elements[el]);
+            }
+            if (hoveredElements.length) {
+                hoveredElements.sort(function(a,b){ return b.z-a.z; });
+                highlight(hoveredElements[0]);
+            }
+            else
+                $("#selector").css("display","none");
+        });
+
+        $(canvasElement).resizable({
+            handles: "e, s, se"
+        });
+
+        $(document).mousedown(function(){
+            $("#code").css("display","none");
+            if (selected && selected!=canvasElement && hoveredElements.length<1) {
+                $("#selected").css("display","none");
+                selected = canvasElement;
+            }
+        })
+
+        var ctrlDown = false,
+            ctrlKey = 17,
+            cmdKey = 91,
+            appleKey = 224,
+            vKey = 86,
+            cKey = 67;
+
+        var buffer;
+
+        $(document).keydown(function(e){
+            
+            if (ctrlDown) {
+                // Copy
+                if (e.keyCode == cKey && selected && selected instanceof Element)  {
+                    buffer = selected;
+                }
+                // Paste
+                else if (e.keyCode == vKey && selected && buffer instanceof Element) {
+                    var newContent = $(selected.content).clone(false)[0];
+                    var newElement = new Element(newContent, selected.name+"-clone");
+                    elements.push(newElement);
+                    buffer = null;
+                }
+            }
+            
+            if (e.keyCode == ctrlKey || e.keyCode == cmdKey || e.keyCode == appleKey) {
+                ctrlDown = true;
+            }
+
+            // Z
+            else if (e.which == 90) {
+                if (hoveredElements.length>1){
+                    hoveredElements.push(hoveredElements.shift());
+                    highlight(hoveredElements[0]);
+                }
+                e.stopPropagation();
+            }
+
+            // shift
+            else if (e.which == 16) {
+                shiftDown = true;
+            }
+
+            else if (selected instanceof Element) {
+                // Delete/Backspace
+                if (e.which == 8 || e.which == 46){
+                    var idx = elements.indexOf(selected);
+                    if (idx>=0)
+                        elements.splice(idx,1);
+                    //$(selected.element).remove();
+                    $(selected.content).remove();
+                    selected = null;
+                    $("#selected, #selector").css("display","none");
+                }
+                // +
+                if (e.which == 61){
+                    var max = true;
+                    for (var e in elements){
+                        if (elements[e].z==selected.z+1){
+                            elements[e].z--;
+                            $(elements[e].content).css("z-index", elements[e].z);
+                            max = false;
+                        }
+                    }
+                    if (max)
+                        return;
+                    selected.z++;
+                    $(selected.content).css("z-index", selected.z);
+                }
+                // -
+                else if (e.which == 173){
+                    if (selected.z<=0)
+                        return;
+                    for (var e in elements){
+                        if (elements[e].z==selected.z-1){
+                            elements[e].z++;
+                            $(elements[e].content).css("z-index", elements[e].z);
+                        }
+                    }
+                    selected.z--;
+                    $(selected.content).css("z-index", selected.z);
+                }
+                // space
+                else if (e.which == 32) {
+                    $(selected.content).css({width: selected.width, height: selected.height});
+                    selected.select();
+                }
+            }
+        }).keyup(function(e) {
+            if (e.keyCode == ctrlKey || e.keyCode == cmdKey) ctrlDown = false;
+            // shift
+            else if (e.which == 16) shiftDown = false;
+        });
+
+    });
+    </script>
+
+</html>
