@@ -4,6 +4,30 @@
 //      >   Conflict between AUDIO and IFRAME??? > Sometimes
 //              >> MAYBE NOT DUE TO IFRAME, BUT PROBLEM MORE GENERALLY...?
 //
+//  DEVELOPMENT:
+//
+//      PennController.AddInstruction({
+//          name: "VoiceRecorder",
+//          _init: function(Instruction, Abort) {
+//              class VoiceRecorder extends Instruction {
+//                  constructor(time){
+//                      if (super(time)==Abort)
+//                          return Abort;
+//                      this.time = time;
+//                  }
+//                  run(){
+//                      if (super.run()==Abort)
+//                          return Abort;
+//                      mediaRecorder.start();
+//                  }
+//              }
+//              let caller = function(time) { 
+//                  return new VoiceRecorder(time); 
+//              };
+//              return caller;
+//          }
+//      });
+//
 //
 //  IDEA FOR RESTRUCTURING INSTRUCTIONS
 //      >   Creating/Retrieving instructions: PennController.newText("text", id), PennController.newImage("file", w, h, id), ...
