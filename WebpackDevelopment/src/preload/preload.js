@@ -1,12 +1,29 @@
-//  =========================================
-//
-//      PRELOADER ENGINE
-//
-//  =========================================
+import "../controller.js";
+
+// Whether all audio instructions should automatically preload
+export var _autoPreloadAudio = true;
+
+// Whether all audio instructions should automatically preload
+export var _autoPreloadImages = true;
+
+// Whether all video instructions should automatically preload
+export var _autoPreloadVideos = true;
+
+// Whether ALL resources should be preloaded at once and asap
+export var _globalPreload = true;
+
+// Array of instructions to preload
+export var _instructionsToPreload = [];
+
+// How long the preloader should wait before ignoring failure to preload (ms)
+export var _timeoutPreload = 120000;
+
+// The message that should be displayed while preloading
+export var _waitWhilePreloadingMessage = "Please wait while the resources are preloading. This process may take up to 2 minutes.";
 
 // Returns only the items that will be run (see latin-squared designs)
 // called by _checkPreload (but could be useful for other tricks)
-function _filteredItems(items) {
+export function _filteredItems(items) {
     let filteredItems = [];
     let latinSquared = {};
     // Going through the items
@@ -39,7 +56,7 @@ function _filteredItems(items) {
 
 // Feeds the passed controller so as to wait for the resources of the matching items to be preloaded
 // called by the controller (see define_ibex_controller below)
-function _checkPreload(controller) {
+export function _checkPreload(controller) {
     // ====     BUILD LIST OF RESOURCES     ====
     //
     let instructions = [];

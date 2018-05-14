@@ -133,3 +133,5 @@ class ComplexInstr extends Instruction {
         return instr;
     }
 }
+
+PennController.instruction.sequence = function(){ return new ComplexInstr(arguments); };

@@ -1,6 +1,9 @@
 // To be implemented
 import "./instruction.js";
 
+// The elements being appended (needs global implementation?)
+var _elementsToAppend = [];
+
 class ScreenInstr extends Instruction {
     constructor(command) {
         super(command, "screen");

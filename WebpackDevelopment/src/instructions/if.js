@@ -1,3 +1,4 @@
+import "../controller.js";
 import "instruction.js";
 
 // Conditionally runs one or another instruction

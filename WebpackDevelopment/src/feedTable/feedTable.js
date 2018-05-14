@@ -1,4 +1,4 @@
-import "../index.js"
+import "../controller.js"
 import "./jQueryCSV.js";
 
 // The TABLE class contains an 2x2 Array-Object and defines Item, Group and Label

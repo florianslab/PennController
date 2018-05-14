@@ -1,5 +1,9 @@
 import "./instruction.js";
 
+// Youtube videos to load
+var _youtubeVideos = {};
+
+
 // Load the Youtube API (see https://developers.google.com/youtube/iframe_api_reference)
 // Will be executed when jQuery is ready
 $(document).ready(function(){

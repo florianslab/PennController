@@ -1,196 +1,71 @@
-import "./instructions/instruction.js";
-import "./preload.js"
+//  =========================================
+//
+//      GENERAL INTERNAL VARIABLES
+//
+//  =========================================
 
-define_ibex_controller({
-    name: "PennController",
-    jqueryWidget: {    
-        _init: function () {
-            
-            var _t = this;
+// Dummy object, ABORT keyword
+// used in the instructions' EXTEND method to abort chain of execution
+export var Abort = new Object;
 
-            _t.cssPrefix = _t.options._cssPrefix;
-            _t.utils = _t.options._utils;
-            _t.finishedCallback = _t.options._finishedCallback;
-
-            //  =======================================
-            //      EXCEPTIONAL CASE: PRELOADER
-            //  =======================================
-            if (_t.options.hasOwnProperty("preload"))
-                return _checkPreload(_t);
-
-            _t.instructions = _t.options.instructions;
-            _t.id = _t.options.id;
-
-            _t.toSave = [];
-            _t.toRunBeforeFinish = [];
-
-            _t.timers = [];
-
-            //  =======================================
-            //      INTERNAL FUNCTIONS
-            //  =======================================
-
-            // Adds a parameter/line to the list of things to save
-            _t.save = function(parameter, value, time, comment){
-                _t.toSave.push([
-                        ["Parameter", parameter],
-                        ["Value", value],
-                        ["Time", time],
-                        ["Comment", comment ? comment : "NULL"]
-                    ]);
-            };
-
-            // Adds a function to be executed before finishedCallBack
-            _t.callbackBeforeFinish = function(func) {
-                _t.toRunBeforeFinish.push(func);
-            };
-
-            // Called when controller ends
-            // Runs finishedCallback
-            _t.end = function() {
-                for (f in _t.toRunBeforeFinish){
-                    _t.toRunBeforeFinish[f]();
-                }
-                // Re-appending preloaded resources to the HTML node
-                for (let f in _preloadedFiles) {
-                    if (!_preloadedFiles[f].parent().is("html")) {
-                        _preloadedFiles[f].css("display","none");
-                        _preloadedFiles[f].appendTo($("html"));
-                    }
-                }
-                // Hide all iframes
-                $("iframe").css("display","none");
-                // Stop playing all audios
-                $("audio").each(function(){ 
-                    this.pause();
-                    this.currentTime = 0;
-                });
-                // End all timers
-                for (let t in this.timers) {
-                    clearInterval(this.timers[t]);
-                    clearTimeout(this.timers[t]);
-                }
-                // Save time
-                _t.save("Page", "End", Date.now(), "NULL");
-                // Next trial
-                _t.finishedCallback(_t.toSave);
-            };
-
-            // #########################
-            // PRELOADING PART 1
-            //
-            // Adds an instruction that must be preloaded before the sequence starts
-            _t.addToPreload = function(instruction) {
-                // Add the resource if defined and only if not already preloaded
-                if (instruction && _instructionsToPreload.indexOf(instruction)>=0) {
-                    if (!_t.toPreload)
-                        _t.toPreload = [];
-                    // Add the resource only if not already listed (several instructions may share the same origin)
-                    if (_t.toPreload.indexOf(instruction) < 0) {
-                        _t.toPreload.push(instruction);
-                        // Extend _setResource (called after preloading)
-                        instruction._setResource = instruction.extend("_setResource", function(){
-                            // Remove the entry (set index here, as it may have changed by the time callback is called)
-                            let index = _t.toPreload.indexOf(instruction);
-                            if (index >= 0)
-                                _t.toPreload.splice(index, 1);
-                            // If no more file to preload, run
-                            if (_t.toPreload.length <= 0) {
-                                $("#waitWhilePreloading").remove();
-                                _t.save("Preload", "Complete", Date.now(), "NULL");
-                                if (!_t.instructions[0].hasBeenRun)
-                                    _t.instructions[0].run();
-                            }
-                        });
-                    }
-                }
-            }
-            // Check if the instruction requires a preloaded resource
-            if (!_globalPreload && _listOfControllers[this.id].hasOwnProperty("preloadingInstructions")) {
-                // Go through each resource that next's origin has to preload
-                for (let i in _listOfControllers[this.id].preloadingInstructions)
-                    // Add resource
-                    _t.addToPreload(_listOfControllers[this.id].preloadingInstructions[i]);
-            }
-            // 
-            // END OF PRELOADING PART 1
-            // #########################
+// Making sure that MutationObserver is defined across browsers
+export const MutationObserver =
+    window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
 
-            // Make it so that each instruction runs next one
-            let previous;
-            for (let i in _t.instructions) {
-                let next = _t.instructions[i];
-                // If not an instruction, continue
-                if (!(next instanceof Instruction))
-                    continue;
-                // Give a parent element
-                next.parentElement = _t.element;
-                // Run next instruction when previous is done
-                if (previous instanceof Instruction) {
-                    previous.done = previous.extend("done", function(){ next.run(); });
-                    // Inform of previous instruction
-                    next.previousInstruction = previous;
-                }
-                previous = next;
-            }
-            // Now previous is the last instruction
-            previous.done = previous.extend("done", function(){ _t.end(); });
+// CONTROLLERS
+//
+// The current controller (upon execution)
+export var _ctrlr = null;
 
-            // Record running of first instruction
-            _t.instructions[0].run = _t.instructions[0].extend("run", function(){ 
-                _t.save("Page", "RunFirstInstruction", Date.now(), "NULL");
-            });
+// The current controller (under construction)
+export var _controller = {};
 
-            // Inform that the current controller is this one
-            _ctrlr = _t;
-
-            // Create local variables (see FuncInstr)
-            _ctrlr.variables = {};
+// The list of controller created with PennController
+export var _listOfControllers = [];
 
 
-            // #########################
-            // PRELOADING PART 2
-            //
-            // If ALL resources should be preloaded at once (and if there are resources to preload to start with)
-            if (_globalPreload && _instructionsToPreload.length) {
-                // Add each of them
-                for (let i in _instructionsToPreload)
-                    _t.addToPreload(i);
-            }
-            // If anything to preload
-            if (_t.toPreload) {
-                // Save preloading time
-                _t.save("Preload", "Start", Date.now(), "NULL");
-                // Add a preloading message
-                _t.element.append($("<div id='waitWhilePreloading'>").html(_waitWhilePreloadingMessage));
-                // Adding a timeout in case preloading fails
-                setTimeout(function(){
-                    // Abort if first instruction has been run in the meantime (e.g. preloading's done)
-                    if (_t.instructions[0].hasBeenRun)
-                        return Abort;
-                    $("#waitWhilePreloading").remove();
-                    _t.save("Preload", "Timeout", Date.now(), "NULL");
-                    if (!_t.instructions[0].hasBeenRun)
-                        _t.instructions[0].run();
-                }, _timeoutPreload);
-            }
-            //
-            // END OF PRELOADING PART 2
-            // #########################
-            // Else, run the first instruction already!
-            else
-                _t.instructions[0].run();
+//  =========================================
+//
+//      PENNCONTROLLER OBJECT
+//
+//  =========================================
 
-            // Save time of creation
-            _t.save("Page", "Creation", Date.now(), "NULL");
+// Returns an object with the instructions passed as arguments
+// The object will be given to the actual controller
+export var PennController = function() {
+    let id = _listOfControllers.length, sequence = arguments;
+    // Add the controller under construction to the list
+    _controller.id = id;
+    _controller.sequence = sequence;
+    _listOfControllers.push(_controller);
+    // Resetting _controller for next one
+    _controller = {};
+    // ID is _instructions' length minus 2: we just pushed for NEXT controller
+    return {instructions: sequence, id: id};
+};
 
-        }
-    },
-
-    properties: {
-        obligatory: [],
-        countsForProgressBar: true,
-        htmlDescription: null
+// General settings
+PennController.Configure = function(parameters){
+    for (parameter in parameters){
+        if (parameter.indexOf["PreloadResources","Configure"] < 0) // Don't override built-in functions/parameters
+            PennController[parameter] = parameters[parameter];
     }
-});
+    /*
+        baseURL: "http://.../",
+        ImageURL: "http://.../",
+        AudioURL: "http://.../",
+        ...
+    */
+};
+
+PennController.AddHost = function() {
+    if (!PennController.hasOwnProperty("hosts"))
+        PennController.hosts = [];
+    for (let a = 0; a < arguments.length; a++) {
+        if (typeof(arguments[a])=="string" && arguments[a].match(/^https?:\/\//i))
+            PennController.hosts.push(arguments[a]);
+        else
+            console.log("Warning: host #"+a+" is not a valid URL.", arguments[a]);
+    }
+}

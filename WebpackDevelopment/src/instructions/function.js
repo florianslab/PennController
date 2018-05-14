@@ -1,3 +1,4 @@
+import "../controller.js";
 import "./instruction.js";
 
 // Executes a function
@@ -21,3 +22,5 @@ class FunctionInstr extends Instruction {
         this.done();
     }
 }
+
+PennController.instruction.function = function(func){ return new FunctionInstr(func); };

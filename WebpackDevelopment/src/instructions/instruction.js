@@ -1,4 +1,39 @@
-class Instruction {
+import "../controller.js";
+import "../preload/preload.js";
+
+// The instructions of each controller
+var _localInstructions = [{}];
+
+// Adds an element to another element
+// If the other element is the main document, add a div first
+export function _addElementTo(element, to, callback) {
+    if (to == null)
+        to = _ctrlr.element;
+    if (!(element instanceof jQuery) || !(to instanceof jQuery))
+        return Abort;
+    // If adding directly to the controller, embed in a DIV
+    if (to == _ctrlr.element)
+        element = $("<div>").append(element);
+    // From https://stackoverflow.com/questions/38588741/having-a-reference-to-an-element-how-to-detect-once-it-appended-to-the-document
+    if (callback instanceof Function && MutationObserver) {
+        let observer = new MutationObserver((mutations) => {
+            if (mutations[0].addedNodes.length === 0)
+                return;
+            if (Array.prototype.indexOf.call(mutations[0].addedNodes, element[0]) === -1)
+                return;
+            observer.disconnect();
+            callback();
+        });
+
+        observer.observe(to[0], {
+            childList: true
+        });
+    }
+    to.append(element);
+}
+
+// The Instruction class itself
+export class Instruction {
 
     constructor(content, type) {
         this.type = type;
@@ -424,32 +459,13 @@ class Instruction {
 }
 
 // Returns an instruction in function of the argument(s) type
-PennController.instruction = function(arg) {
-    // Create a new instruction
-    switch (typeof(arg)) {
-        case "string":
-            // If there's an instrution referenced as ARG while EXECUTING a controller
-            if (_ctrlr && _localInstructions[_ctrlr.id].hasOwnProperty(arg))
-                return _localInstructions[_ctrlr.id][arg];
-            // If there's an instrution referenced as ARG while CREATING a controller
-            else if (!_ctrlr && _localInstructions[_localInstructions.length-1].hasOwnProperty(arg))
-                return _localInstructions[_localInstructions.length-1][arg];
-            // Else, just create an instruction
-            else if (arg.match(/\.(png|jpe?g|bmp|gif)$/i))    
-                return new ImageInstr(arg);             // Create an image instruction
-            else if (arg.match(/\.(wav|ogg|mp3)$/i))
-                return new AudioInstr(arg);             // Create an audio instruction
-            else 
-                return new TextInstr(arg);              // Create a text instruction
-        break;
-        case "number":
-            return new TimerInstr(arg);                 // Create a timer instruction
-        break;
-        case "function":
-            return new FunctionInstr(arg);              // Create a function instruction
-        break;
-        case "object":
-            return new ComplexInstr(arguments);         // Create a complex instruction
-        break;
-    }
+PennController.instruction = function(id) {
+    if (typeof(id)!="string")
+        return Abort;
+    // If there's an instrution referenced as ARG while EXECUTING a controller
+    if (_ctrlr && _localInstructions[_ctrlr.id].hasOwnProperty(arg))
+        return _localInstructions[_ctrlr.id][arg];
+    // If there's an instrution referenced as ARG while CREATING a controller
+    else if (!_ctrlr && _localInstructions[_localInstructions.length-1].hasOwnProperty(arg))
+        return _localInstructions[_localInstructions.length-1][arg];
 };

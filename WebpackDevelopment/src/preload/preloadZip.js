@@ -1,4 +1,4 @@
-import "../index.js";
+import "../controller.js";
 import JSZip from "../jszip.js";
 import { getBinaryContent } from "../jszip-utils.js";
 
@@ -101,3 +101,9 @@ function _preloadZip () {
             getZipFile(url);
     }
 };
+
+// Start to download the zip files as soon as the document is ready
+$(document).ready(function(){
+    // Preload any zip file
+    _preloadZip();
+});
