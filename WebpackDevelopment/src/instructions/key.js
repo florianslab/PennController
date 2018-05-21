@@ -1,5 +1,3 @@
-import "./instruction.js";
-
 // Binds a keypress event to the document
 // Done upon keypress
 class KeyInstr extends Instruction {
@@ -38,7 +36,7 @@ class KeyInstr extends Instruction {
         if (super.run() == Abort)
             return Abort;
         let ti = this;
-        _ctrlr.safeBind($(document),"keydown",function(e){
+        Ctrlr.running.safeBind($(document),"keydown",function(e){
             if (ti.keys.length==0 || ti.keys.indexOf(e.keyCode)>=0)
                 ti._pressed(e.keyCode);
         });
@@ -89,8 +87,8 @@ class KeyInstr extends Instruction {
     record(comment) {
         return this.newMeta(function(){
             let ti = this;
-            _ctrlr.callbackBeforeFinish(function(){ 
-                _ctrlr.save('keypress', ti.origin.key, ti.origin.time, comment);
+            Ctrlr.running.callbackBeforeFinish(function(){ 
+                Ctrlr.running.save('keypress', ti.origin.key, ti.origin.time, comment);
             });
             this.done();
         });

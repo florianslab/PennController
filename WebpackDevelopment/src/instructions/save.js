@@ -1,5 +1,3 @@
-import "./instruction.js"
-
 // Adds something to the list of what is to be saved
 // Done immediately
 class SaveInstr extends Instruction {
@@ -19,7 +17,7 @@ class SaveInstr extends Instruction {
     run() {
         if (super.run() == Abort)
             return Abort;
-        _ctrlr.save(this.parameter, this.value, Date.now(), this.comment);
+        Ctrlr.running.save(this.parameter, this.value, Date.now(), this.comment);
         this.done();
     }
 }

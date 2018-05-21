@@ -1,4 +1,4 @@
-import "./instruction.js";
+import {_autoPreloadImages} from "../preload/preload.js";
 
 // Adds an IMG to the parent element
 // Done immediately
@@ -28,7 +28,7 @@ class ImageInstr extends Instruction {
         if (super.run() == Abort)
             return Abort;
         //this.element.append(this.image);
-        _addElementTo(this.element, this.parentElement);
+        this._addElement(this.parentElement);
         this.done();
     }
 

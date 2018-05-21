@@ -1,5 +1,3 @@
-import "./instruction.js";
-
 // Adds an instruction to end the trial prematurely
 // Done immediately
 class EndInstr extends Instruction {
@@ -10,7 +8,7 @@ class EndInstr extends Instruction {
         super.run();
         this.hasBeenRun = true;
         this.done = true;
-        _ctrlr.end();
+        Ctrlr.running.end();
     }
 }
 

@@ -1,6 +1,4 @@
-import "./instructions/instruction.js";
-import "./preload.js"
-import "./controller.js";
+import {_globalPreload, _instructionsToPreload, _timeoutPreload, _waitWhilePreloadingMessage, _checkPreload} from "./preload/preload.js";
 
 // All the image and audio files
 var _preloadedFiles = {};
@@ -17,10 +15,10 @@ define_ibex_controller({
             _t.finishedCallback = _t.options._finishedCallback;
 
             //  =======================================
-            //      EXCEPTIONAL CASE: PRELOADER
+            //      EXCEPTIONAL CASE: CUSTOM CONTROLLER
             //  =======================================
-            if (_t.options.hasOwnProperty("preload"))
-                return _checkPreload(_t);
+            if (_t.options.hasOwnProperty("custom") && _t.options.custom instanceof Function)
+                return _t.options.custom(_t);
 
             _t.instructions = _t.options.instructions;
             _t.id = _t.options.id;
@@ -52,7 +50,7 @@ define_ibex_controller({
             // Called when controller ends
             // Runs finishedCallback
             _t.end = function() {
-                for (f in _t.toRunBeforeFinish){
+                for (let f in _t.toRunBeforeFinish){
                     _t.toRunBeforeFinish[f]();
                 }
                 // Re-appending preloaded resources to the HTML node
@@ -110,11 +108,11 @@ define_ibex_controller({
                 }
             }
             // Check if the instruction requires a preloaded resource
-            if (!_globalPreload && _listOfControllers[this.id].hasOwnProperty("preloadingInstructions")) {
+            if (!_globalPreload && Ctrlr.list[this.id].hasOwnProperty("preloadingInstructions")) {
                 // Go through each resource that next's origin has to preload
-                for (let i in _listOfControllers[this.id].preloadingInstructions)
+                for (let i in Ctrlr.list[this.id].preloadingInstructions)
                     // Add resource
-                    _t.addToPreload(_listOfControllers[this.id].preloadingInstructions[i]);
+                    _t.addToPreload(Ctrlr.list[this.id].preloadingInstructions[i]);
             }
             // 
             // END OF PRELOADING PART 1
@@ -146,12 +144,12 @@ define_ibex_controller({
                 _t.save("Page", "RunFirstInstruction", Date.now(), "NULL");
             });
 
-            // Inform that the current controller is this one
-            _ctrlr = _t;
-
             // Create local variables (see FuncInstr)
-            _ctrlr.variables = {};
+            _t.variables = {};
 
+            // Inform that the current controller is this one
+            //_setCtrlr(_t);
+            Ctrlr.running = _t;
 
             // #########################
             // PRELOADING PART 2
@@ -198,3 +196,20 @@ define_ibex_controller({
         htmlDescription: null
     }
 });
+
+
+// Get any change to the running order (stocked in controller.js)
+import { getChangeRunningOrder } from "./controller.js";
+
+// Apply any change to the running order
+window.modifyRunningOrder = function (ro) {
+    console.log("Running modifyRunningOrder");
+    let functionsRunningOrder = getChangeRunningOrder();
+    console.log("Now going through...");
+    for (let i = 0; i < functionsRunningOrder.length; i++){
+        console.log("Modifying running order with a function");
+        ro = functionsRunningOrder[i](ro);
+    }
+    console.log("New running order:", ro);
+    return ro;
+}

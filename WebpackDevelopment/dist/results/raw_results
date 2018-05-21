@@ -203,3 +203,87 @@
 # Design number was non-random = 33
 #
 [false,33,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment"],[[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526006610806],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526006610806],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526006612024],[8,"NULL"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Tuesday May 15 2018 05:08:42 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:59.0) Gecko/20100101 Firefox/59.0
+# Design number was non-random = 34
+#
+[false,34,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment"],[[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526360920012],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526360920012],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526360922314],[8,"NULL"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Tuesday May 15 2018 19:12:40 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:59.0) Gecko/20100101 Firefox/59.0
+# Design number was non-random = 35
+#
+[false,35,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment"],[[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526411558626],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526411558626],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526411560110],[8,"NULL"]]],"mwfZI6jyyVbnvJFcBXL60A",true]
+#
+# Results on Tuesday May 15 2018 19:16:41 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:59.0) Gecko/20100101 Firefox/59.0
+# Design number was non-random = 36
+#
+[false,36,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment"],[[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526411798562],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526411798562],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526411799572],[8,"NULL"]]],"mwfZI6jyyVbnvJFcBXL60A",true]
+#
+# Results on Tuesday May 15 2018 19:17:50 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:59.0) Gecko/20100101 Firefox/59.0
+# Design number was non-random = 37
+#
+[false,37,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment"],[[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526411867890],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526411867890],[8,"NULL"]],[[0,"PennController"],[1,3],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526411868778],[8,"NULL"]]],"mwfZI6jyyVbnvJFcBXL60A",true]
+#
+# Results on Friday May 18 2018 03:59:21 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 38
+#
+[false,38,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526615899498],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526615899498],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526615915970],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526615921407],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T03-58-41-419Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526615961840],[8,"NULL"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Friday May 18 2018 21:04:52 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 39
+#
+[false,39,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus","Error","Status"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Start"],[7,1526677471675],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526677471675],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Complete"],[7,1526677475223],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526677475225],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526677477484],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526677479459],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T21-04-39-473Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526677491983],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-18T21-04-52-025Z.zip"],[10,"Failed"],[11,""],[12,"error"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Friday May 18 2018 21:15:40 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 40
+#
+[false,40,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus","Error","Status"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Start"],[7,1526678092875],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526678092876],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Complete"],[7,1526678094131],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526678094132],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526678110937],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526678115341],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T21-15-15-353Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526678122170],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-18T21-15-22-224Z.zip"],[10,"Failed"],[11,""],[12,"error"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Friday May 18 2018 21:17:55 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 41
+#
+[false,41,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus","Error","Status"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Start"],[7,1526678259661],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526678259661],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Complete"],[7,1526678263434],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526678263436],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526678264210],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526678266031],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T21-17-46-042Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526678267812],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-18T21-17-47-854Z.zip"],[10,"Failed"],[11,""],[12,"error"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Friday May 18 2018 21:22:59 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 42
+#
+[false,42,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus","Error","Status"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Start"],[7,1526678340086],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526678340087],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Complete"],[7,1526678342657],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526678342659],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526678350440],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526678354808],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T21-19-14-817Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526678356121],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-18T21-19-16-174Z.zip"],[10,"Failed"],[11,""],[12,"error"]]],"LpeoU86LaifonWI0MxJ6wg",true]
+#
+# Results on Friday May 18 2018 21:23:26 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 43
+#
+[false,43,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus","Error","Status"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Start"],[7,1526678584565],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526678584565],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Preload"],[6,"Complete"],[7,1526678587808],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526678587810],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526678589627],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526678595552],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T21-23-15-570Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526678597737],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-18T21-23-17-805Z.zip"],[10,"Failed"],[11,""],[12,"error"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Friday May 18 2018 21:39:50 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 44
+#
+[false,44,["Controller name","Item number","Element number","Type","Group"],[],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Friday May 18 2018 23:30:00 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 45
+#
+[false,45,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526686168557],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526686168557],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526686171035],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526686176406],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-18T23-29-36-427Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526686199908],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-18T23-29-59-995Z.zip"],[10,"Success"]]],"QMRwAeHm+FFNySMY2pKuIw",true]
+#
+# Results on Monday May 21 2018 16:12:17 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 46
+#
+[false,46,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526919101415],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526919101415],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526919123874],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526919129640],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-21T16-12-09-649Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526919137459],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-21T16-12-17-528Z.zip"],[10,"Success"]]],"mwfZI6jyyVbnvJFcBXL60A",true]
+#
+# Results on Monday May 21 2018 16:18:12 UTC.
+# USER AGENT: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:60.0) Gecko/20100101 Firefox/60.0
+# Design number was non-random = 47
+#
+[false,47,["Controller name","Item number","Element number","Type","Group","Parameter","Value","Time","Comment","VoiceRecordingsFilename","UploadStatus"],[[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"RunFirstInstruction"],[7,1526919328574],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"Creation"],[7,1526919328574],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526919457221],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526919460978],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-21T16-17-40-992Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StartRecording"],[7,1526919462390],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"StopRecording"],[7,1526919466681],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"VoiceRecorder"],[6,"Filename"],[7,"msr-2018-05-21T16-17-46-691Z.ogg"],[8,"NULL"]],[[0,"PennController"],[1,4],[2,0],[3,"test"],[4,"NULL"],[5,"Page"],[6,"End"],[7,1526919491649],[8,"NULL"]],[[0,"PennController"],[1,"DYNAMIC"],[2,"DYNAMIC"],[3,"DYNAMIC"],[4,"DYNAMIC"],[9,"msr-2018-05-21T16-18-11-738Z.zip"],[10,"Success"]]],"mwfZI6jyyVbnvJFcBXL60A",true]

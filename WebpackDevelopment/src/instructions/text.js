@@ -1,5 +1,3 @@
-import "./instruction.js";
-
 // Adds a SPAN to the parent element
 // Done immediately
 class TextInstr extends Instruction {
@@ -17,7 +15,7 @@ class TextInstr extends Instruction {
     run() {
         if (super.run() == Abort)
             return Abort;
-        _addElementTo(this.element, this.parentElement);
+        this._addElement(this.parentElement);
         this.done();
     }
 

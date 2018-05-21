@@ -1,6 +1,4 @@
 // To be implemented
-import "./instruction.js";
-
 class TooltipInstr extends Instruction {
 
 }

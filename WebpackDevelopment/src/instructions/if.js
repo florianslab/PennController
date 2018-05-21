@@ -1,6 +1,3 @@
-import "../controller.js";
-import "instruction.js";
-
 // Conditionally runs one or another instruction
 // Done when executed instruction is done
 class IfInstr extends Instruction {

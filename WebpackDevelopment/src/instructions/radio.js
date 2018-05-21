@@ -1,5 +1,3 @@
-import "./instruction.js";
-
 // Adds a radio scale to the parent element
 // Done immediately
 class RadioInstr extends Instruction {
@@ -28,7 +26,7 @@ class RadioInstr extends Instruction {
     run() {
         if (super.run() == Abort)
             return Abort;
-        _addElementTo(this.element, this.parentElement);
+        this._addElement(this.parentElement);
         this.done();
     }
 
@@ -92,19 +90,19 @@ class RadioInstr extends Instruction {
         let o = this.origin;
         return this.newMeta(function(){ 
             // Tell controller to save value(s) before calling finishedCallback
-            _ctrlr.callbackBeforeFinish(function(){
+            Ctrlr.running.callbackBeforeFinish(function(){
                 // If the value to be saved in only the final value (default)
                 if (typeof(parameters) != "string" || parameters == "last")
                     // Store a function to save the value at the end of the trial
-                    _ctrlr.save(o.label, o.values[o.values.length-1], o.times[o.times.length-1], comment);
+                    Ctrlr.running.save(o.label, o.values[o.values.length-1], o.times[o.times.length-1], comment);
                 else {
-                    // If only saving first selected value, call _ctrlr.SAVE on first click
+                    // If only saving first selected value, call Ctrlr.running.SAVE on first click
                     if (parameters == "first" && o.values.length == 1)
-                        _ctrlr.save(o.label, o.values[0], o.times[0], comment);
-                    // If all values are to be saved, call _ctrlr.SAVE on every click
+                        Ctrlr.running.save(o.label, o.values[0], o.times[0], comment);
+                    // If all values are to be saved, call Ctrlr.running.SAVE on every click
                     else if (parameters == "all") {
                         for (let n in o.values)
-                            _ctrlr.save(o.label, o.values[n], o.times[n], comment);
+                            Ctrlr.running.save(o.label, o.values[n], o.times[n], comment);
                     }
                 }
             });

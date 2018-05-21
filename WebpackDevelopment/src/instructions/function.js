@@ -1,6 +1,3 @@
-import "../controller.js";
-import "./instruction.js";
-
 // Executes a function
 // Done immediately
 class FunctionInstr extends Instruction {
@@ -18,9 +15,9 @@ class FunctionInstr extends Instruction {
     run() {
         if (super.run() == Abort)
             return Abort;
-        this.func.apply(_ctrlr.variables);
+        this.func.apply(Ctrlr.running.variables);
         this.done();
     }
 }
 
-PennController.instruction.function = function(func){ return new FunctionInstr(func); };
+PennController.instruction.func = function(func){ return new FunctionInstr(func); };

@@ -1,11 +1,9 @@
 // The controller object itself
 import "./controller.js";
 
-
 // The preloaders
 import "./preload/preload.js";
 import "./preload/preloadZip.js";       //  Uses JSZip
-
 
 // This defines the Instruction class
 // It should always be imported
@@ -27,12 +25,12 @@ import "./instructions/selector.js";
 import "./instructions/text.js";
 import "./instructions/timer.js";
 //import "./instructions/tooltip.js";   // TBI
-//import "./instructions/voice.js";     // TBI  -- Uses JSZip
-import "./instructions/youtube.js";
+import "./instructions/voice.js";       // Uses JSZip
+import "./instructions/youtube.js";     // Uses code from Google
 
 
 // Table feeding
-import "./feedTable/feedTable.js";
+import "./feedTable.js";      // Uses jQuery-CSV extension
 
 
 // IBEX controller

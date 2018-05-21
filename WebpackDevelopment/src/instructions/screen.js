@@ -1,5 +1,6 @@
 // To be implemented
-import "./instruction.js";
+
+// import {_setCtrlr} from "../controller.js";
 
 // The elements being appended (needs global implementation?)
 var _elementsToAppend = [];
@@ -11,11 +12,11 @@ class ScreenInstr extends Instruction {
 
     run() {
         if (command == "hold")
-            _ctrlr.hold = true;
+            _setCtrlr("hold", true);
         else if (command == "release") {
-            _ctrlr.hold = false;
+            _setCtrlr("hold", false);
             if (!_elementsToAppend.length)
-                _ctrlr.release();
+                Ctrlr.running.release();
         }
     }
 }

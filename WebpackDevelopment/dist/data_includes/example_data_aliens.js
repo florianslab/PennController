@@ -16,16 +16,23 @@ var items = [
   ["checkTest", "PennController", PennController.CheckPreload("test", 10)],
   ["checkItems", "PennController", PennController.CheckPreload(startsWith("Item"))],
   
+  ["test", "PennController", 
+    PennController.InitiateRecorder("http://files.lab.florianschwarz.net/ibexfiles/RecordingsFromIbex/saveAudioZip.php")
+  ],
+  
   ["test", "PennController", PennController(
 
+      istr.voiceRecorder()
+      ,
       istr.image("planets.png")
+      ,
+      istr.voiceRecorder()
       ,
       istr.key(" ")
 
   )]
 
 ];
-
 
 // Feed/Create the items from the datasource
 PennController.FeedItems(

@@ -75,6 +75,9 @@ IDEA FOR RESTRUCTURING INSTRUCTIONS
                         .wait()
     )
 
+- Upload the recordings before __SendResults__
+    and provide a function to generate a link to download the archive?
+
 - Add a drag'n'drop function (and record the associated events)
 
 - Fix what happens when no host and no zip provided

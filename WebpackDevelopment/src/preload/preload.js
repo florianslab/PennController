@@ -1,5 +1,3 @@
-import "../controller.js";
-
 // Whether all audio instructions should automatically preload
 export var _autoPreloadAudio = true;
 
@@ -23,7 +21,7 @@ export var _waitWhilePreloadingMessage = "Please wait while the resources are pr
 
 // Returns only the items that will be run (see latin-squared designs)
 // called by _checkPreload (but could be useful for other tricks)
-export function _filteredItems(items) {
+function _filteredItems(items) {
     let filteredItems = [];
     let latinSquared = {};
     // Going through the items
@@ -90,7 +88,7 @@ export function _checkPreload(controller) {
             label = item[0][0];
         // Go through the label predicates
         let match = false;
-        for (l in labelPredicates) {
+        for (let l in labelPredicates) {
             // If the label satisfies a predicate, then will add its instructions to the list
             if (labelPredicates[l](label)) {
                 match = true;
@@ -114,7 +112,7 @@ export function _checkPreload(controller) {
                 // Making sure the current element is indeed a penncontroller
                 if (element instanceof Object && element.hasOwnProperty("id")) {
                     // Add the PennController's resources
-                    instructions = instructions.concat(_listOfControllers[element.id].preloadingInstructions);
+                    instructions = instructions.concat(Ctrlr.list[element.id].preloadingInstructions);
                 }
             }
             // If the current element is the string "PennController," note it down
@@ -178,7 +176,7 @@ PennController.CheckPreload = function () {
     if (typeof(timeout) != "number" || timeout <= 0)
         timeout = _timeoutPreload
     // Return the object below; the controller will know how to deal with it (see define_ibex_controller below)
-    return {preload: arguments, timeout: timeout, countsForProgressBar: false};
+    return {custom: _checkPreload, preload: arguments, timeout: timeout, countsForProgressBar: false};
 };
 
 // Settings for auto preloading

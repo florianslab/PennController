@@ -1,5 +1,3 @@
-import "./instruction.js";
-
 // Detaches any preceding DOM element
 // Done immediately
 class ClearInstr extends Instruction {

@@ -1,5 +1,3 @@
-import "./instruction.js"
-
 // Groups instruction's elements in a 'select' form
 // Done immediately (+WAIT method: upon selection)
 class SelectorInstr extends Instruction {
@@ -51,7 +49,7 @@ class SelectorInstr extends Instruction {
             }
         }
         // Binding a keydown event
-        _ctrlr.safeBind($(document), "keydown", function(e){
+        Ctrlr.running.safeBind($(document), "keydown", function(e){
             // Triggering only if keys were specified
             if (!ti.keyList.length)
                 return Abort;
@@ -62,7 +60,7 @@ class SelectorInstr extends Instruction {
             }
         });
         // Add the div to the parent element
-        _addElementTo(this.element, this.parentElement);
+        _addElement(this.parentElement);
         // Done immediately
         this.done();
     }
@@ -108,7 +106,7 @@ class SelectorInstr extends Instruction {
         return function(){
             // If more than one instruction
             if (arg.hasOwnProperty("1")) {
-                for (a in arg) {
+                for (let a in arg) {
                     if (arg[a] instanceof Instruction && arg[a].origin == o.selectedInstruction)
                         return true;
                 }
@@ -152,7 +150,7 @@ class SelectorInstr extends Instruction {
                 if (instrOrFunc instanceof Instruction)
                     instrOrFunc.run();
                 else if (instrOrFunc instanceof Function)
-                    instrOrFunc.apply(_ctrlr.variables, [this.origin.selectedInstruction]);
+                    instrOrFunc.apply(Ctrlr.running.variables, [this.origin.selectedInstruction]);
             });
             this.done();
         });
@@ -288,22 +286,22 @@ class SelectorInstr extends Instruction {
     record(parameters) {
         return this.newMeta(function(){
             let o = this.origin;
-            _ctrlr.callbackBeforeFinish(function(){ 
+            Ctrlr.running.callbackBeforeFinish(function(){ 
                 if (!o.selections.length)
                     return Abort;
                 if (typeof(parameters) == "string") {
                     if (parameters == "first")
-                        _ctrlr.save("selection", o.selections[0][0], o.selections[0][1], "NULL");
+                        Ctrlr.running.save("selection", o.selections[0][0], o.selections[0][1], "NULL");
                     else if (parameters == "last")
-                        _ctrlr.save("selection", o.selections[o.selections.length-1][0], o.selections[o.selections.length-1][1], "NULL");
+                        Ctrlr.running.save("selection", o.selections[o.selections.length-1][0], o.selections[o.selections.length-1][1], "NULL");
                     else {
                         for (let s in o.selections)
-                            _ctrlr.save("selection", o.selections[s][0], o.selections[s][1], "NULL");
+                            Ctrlr.running.save("selection", o.selections[s][0], o.selections[s][1], "NULL");
                     }
                 }
                 else {
                     for (let s in o.selections)
-                            _ctrlr.save("selection", o.selections[s][0], o.selections[s][1], "NULL");
+                            Ctrlr.running.save("selection", o.selections[s][0], o.selections[s][1], "NULL");
                 }
             });
             this.done();

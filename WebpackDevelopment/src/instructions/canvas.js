@@ -1,5 +1,3 @@
-import "./instruction.js";
-
 // Adds a Canvas where you can place multiple instructions
 // Done immediately
 class CanvasInstr extends Instruction {
@@ -36,7 +34,7 @@ class CanvasInstr extends Instruction {
                 });
             }
         }
-        _addElementTo(this.element, this.parentElement);
+        this._addElement(this.parentElement);
         this.done();
     }
 

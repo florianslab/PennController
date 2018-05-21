@@ -1,4 +1,4 @@
-import "./instruction.js";
+// import {_setCtrlr} from "../controller.js";
 
 // Adds a timer
 // Done immediately
@@ -10,6 +10,7 @@ class TimerInstr extends Instruction {
             this.setElement($("<timer>"));
             this.step = 10;
             this.callback = callback;
+            this.cleared = false;
         }
     }
 
@@ -31,16 +32,18 @@ class TimerInstr extends Instruction {
             }
         }, this.step);*/
         this.timer = setTimeout(function(){ ti._elapsed(); }, this.delay);
-        _ctrlr.timers.push(this.timer);
+        //_setCtrlr("timers", Ctrlr.running.timers.concat([this.timer]));
+        Ctrlr.running.timers.push(this.timer);
         this.done();
     }
 
     // Called when timer has elapsed
     _elapsed() {
+        this.cleared = true;
         if (this.callback instanceof Function)
             this.callback();
         else if (this.callback instanceof Instruction) {
-            this.callback.parentElement = _ctrlr.element;
+            this.callback.parentElement = Ctrlr.running.element;
             this.callback.run();
         }
     }
@@ -76,11 +79,17 @@ class TimerInstr extends Instruction {
     wait(callback) {
         return this.newMeta(function(){
             let ti = this;
-            this.origin._elapsed = this.origin.extend("_elapsed", function(){ 
-                if (callback instanceof Instruction && !callback.hasBeenRun)
-                    callback.run()
+            let timerCleared = function(){
                 ti.done();
-            });
+                if (callback instanceof Function)
+                    callback();
+                else if (callback instanceof Instruction && !callback.hasBeenRun)
+                    callback.run();
+            };
+            if (cleared)
+                timerCleared();
+            else
+                this.origin._elapsed = this.origin.extend("_elapsed", timerCleared);
         });
     }
 }

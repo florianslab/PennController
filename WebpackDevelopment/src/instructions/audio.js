@@ -1,4 +1,4 @@
-import "./instruction.js";
+import {_autoPreloadAudio, _instructionsToPreload} from "../preload/preload.js";
 
 // Adds an AUDIO to the parent element
 // Done immediately
@@ -49,7 +49,7 @@ class AudioInstr extends Instruction {
             this.origin.audio.bind('ended', function(){ ti._whenEnded(); });
             // If audio not entirely preloaded yet, send an error signal
             if (this.audio.readyState < 4 && _instructionsToPreload.indexOf(this.origin)>=0)
-                _ctrlr.save("ERROR_PRELOADING_AUDIO", this.content, Date.now(), "Audio was not fully loaded");
+                Ctrlr.running.save("ERROR_PRELOADING_AUDIO", this.content, Date.now(), "Audio was not fully loaded");
             // Show controls
             if (this.controls) {
                 this.audio.attr('controls',true);
@@ -61,7 +61,7 @@ class AudioInstr extends Instruction {
             // Adding it to the element
             this.element.append(this.audio);
             // Adding the element to the document
-            _addElementTo(this.element, this.parentElement);
+            this._addElement(this.parentElement);
             // Autoplay
             if (this.autoPlay)
                 this.audio[0].play();
@@ -174,13 +174,13 @@ class AudioInstr extends Instruction {
                 }
                 else
                     return Abort;
-                // Adding it to done, because _ctrlr is not defined upon creation of instruction
+                // Adding it to done, because Ctrlr.running is not defined upon creation of instruction
                 o.done = o.extend("done", function(){
-                    _ctrlr.callbackBeforeFinish(function(){
+                    Ctrlr.running.callbackBeforeFinish(function(){
                         for (let r in o.eventsRecord) {
                             let record = o.eventsRecord[r];
                             if (record[0] == event)
-                                _ctrlr.save(o.content, record[0], record[1], record[2]);
+                                Ctrlr.running.save(o.content, record[0], record[1], record[2]);
                         }
                     });
                 });

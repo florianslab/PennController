@@ -1,18 +1,17 @@
-import "../controller.js";
-import JSZip from "../jszip.js";
-import { getBinaryContent } from "../jszip-utils.js";
+import * as JSZip from 'jszip';
+import { getBinaryContent } from 'jszip-utils';
 
 // List of URLs to ZIP files
-var _URLsToLoad = [];
-//
-// Dictionary of Blob's for unzipped resources
-var _unzippedResources = {};
+export var _URLsToLoad = [];
 //
 // Determines whether looking in zip files in priority
-var _zipPriority = true;
+export var _zipPriority = true;
+//
+// Dictionary of Blob's for unzipped resources
+export var _unzippedResources = {};
 //
 // The list of functions to call when all the files have been unzipped
-var _zipCallbacks = [];
+export var _zipCallbacks = [];
 
 
 // Loads the file at each URL passed as an argument
@@ -37,7 +36,7 @@ function _preloadZip () {
             // If all the ZIP archives have been unzipped, call the callbacks
             if (_URLsToLoad.length<=0) {
                 console.log(_unzippedResources);
-                for (f in _zipCallbacks) {
+                for (let f in _zipCallbacks) {
                     if (_zipCallbacks[f] instanceof Function)
                         _zipCallbacks[f].call();
                 }
@@ -45,47 +44,47 @@ function _preloadZip () {
         }
         var zip = new JSZip();
         getBinaryContent(url, function(error, data) {
-        if (error) {
-            // Problem with downloading the file: remove the URL from the array
-            removeURL();
-            // Throw the error
-            throw error;
-        }
-        // Loading the zip object with the data stream
-        zip.loadAsync(data).then(function(){
-            console.log("Download of "+url+" complete");
-            // Number of files unzipped
-            var unzippedFilesSoFar = 0;
-            // Going through each zip file
-            zip.forEach(function(path, file){
-                // Unzipping the file, and counting how far we got
-                file.async('arraybuffer').then(function(content){
-                    // Excluding weird MACOS zip files
-                    if (!path.match(/__MACOS.+\/\.[^\/]+$/)) {
-                        // Getting rid of path, keeping just filename
-                        let filename = path.replace(/^.*?([^\/]+)$/,"$1");
-                        // Type will determine the type of Blob and HTML tag
-                        let type = "";
-                        // AUDIO
-                        if (filename.match(/\.(wav|mp3|ogg)$/i))
-                            type = "audio/"+filename.replace(/^.+\.([^.]+)$/,"$1").replace(/mp3/i,"mpeg").toLowerCase();
-                        // IMAGE
-                        else if (filename.match(/\.(png|jpe?g|gif)$/i))
-                            type = "image/"+filename.replace(/^.+\.([^.]+)$/,"$1").replace(/jpg/i,"jpeg").toLowerCase();
-                        // Add blob only if type was recognized (ie. type != "")
-                        if (type.length > 0)
-                            // Create the BLOB object
-                            _unzippedResources[filename] = {blob: new Blob([content], {type: type}), type: type};
-                            // SRC attribute points to the dynamic Blob object
-                        //let attr = {src: URL.createObjectURL(blob), type: type};
-                    }
-                    unzippedFilesSoFar++;
-                    // All files unzipped: remove the URL from the array
-                    if (unzippedFilesSoFar >= Object.keys(zip.files).length)
-                        removeURL();
+            if (error) {
+                // Problem with downloading the file: remove the URL from the array
+                removeURL();
+                // Throw the error
+                throw error;
+            }
+            // Loading the zip object with the data stream
+            zip.loadAsync(data).then(function(){
+                console.log("Download of "+url+" complete");
+                // Number of files unzipped
+                var unzippedFilesSoFar = 0;
+                // Going through each zip file
+                zip.forEach(function(path, file){
+                    // Unzipping the file, and counting how far we got
+                    file.async('arraybuffer').then(function(content){
+                        // Excluding weird MACOS zip files
+                        if (!path.match(/__MACOS.+\/\.[^\/]+$/)) {
+                            // Getting rid of path, keeping just filename
+                            let filename = path.replace(/^.*?([^\/]+)$/,"$1");
+                            // Type will determine the type of Blob and HTML tag
+                            let type = "";
+                            // AUDIO
+                            if (filename.match(/\.(wav|mp3|ogg)$/i))
+                                type = "audio/"+filename.replace(/^.+\.([^.]+)$/,"$1").replace(/mp3/i,"mpeg").toLowerCase();
+                            // IMAGE
+                            else if (filename.match(/\.(png|jpe?g|gif)$/i))
+                                type = "image/"+filename.replace(/^.+\.([^.]+)$/,"$1").replace(/jpg/i,"jpeg").toLowerCase();
+                            // Add blob only if type was recognized (ie. type != "")
+                            if (type.length > 0)
+                                // Create the BLOB object
+                                _unzippedResources[filename] = {blob: new Blob([content], {type: type}), type: type};
+                                // SRC attribute points to the dynamic Blob object
+                            //let attr = {src: URL.createObjectURL(blob), type: type};
+                        }
+                        unzippedFilesSoFar++;
+                        // All files unzipped: remove the URL from the array
+                        if (unzippedFilesSoFar >= Object.keys(zip.files).length)
+                            removeURL();
+                    });
                 });
             });
-        });
         });
     };
     

@@ -1,36 +1,11 @@
-import "../controller.js";
-import "../preload/preload.js";
+import {_instructionsToPreload} from "../preload/preload.js";
+import {_URLsToLoad, _zipPriority, _unzippedResources, _zipCallbacks} from "../preload/preloadZip.js";
+
+const MutationObserver =
+    window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
 // The instructions of each controller
 var _localInstructions = [{}];
-
-// Adds an element to another element
-// If the other element is the main document, add a div first
-export function _addElementTo(element, to, callback) {
-    if (to == null)
-        to = _ctrlr.element;
-    if (!(element instanceof jQuery) || !(to instanceof jQuery))
-        return Abort;
-    // If adding directly to the controller, embed in a DIV
-    if (to == _ctrlr.element)
-        element = $("<div>").append(element);
-    // From https://stackoverflow.com/questions/38588741/having-a-reference-to-an-element-how-to-detect-once-it-appended-to-the-document
-    if (callback instanceof Function && MutationObserver) {
-        let observer = new MutationObserver((mutations) => {
-            if (mutations[0].addedNodes.length === 0)
-                return;
-            if (Array.prototype.indexOf.call(mutations[0].addedNodes, element[0]) === -1)
-                return;
-            observer.disconnect();
-            callback();
-        });
-
-        observer.observe(to[0], {
-            childList: true
-        });
-    }
-    to.append(element);
-}
 
 // The Instruction class itself
 export class Instruction {
@@ -49,9 +24,39 @@ export class Instruction {
         this.j = {}
         //console.log("Created instruction of type "+type+" with "+this.content);
         // Add instruction to the current controller
-        if (!_controller.hasOwnProperty("instructions"))
-            _controller.instructions = [];
-        _controller.instructions.push(this);
+        if (!Ctrlr.building.hasOwnProperty("instructions"))
+            Ctrlr.building.instructions = [];
+        Ctrlr.building.instructions.push(this);
+        console.log("Created a new instruction, adding to controller:", Ctrlr.building);
+    }
+
+    // Adds this's element to a given element
+    _addElement(to, element, callback) {
+        if (to == null)
+            to = Ctrlr.running.element;
+        if (element == null)
+            element = this.element;
+        if (!(element instanceof jQuery) || !(to instanceof jQuery))
+            return Abort;
+        // If adding directly to the controller, embed in a DIV
+        if (to == Ctrlr.running.element)
+            element = $("<div>").append(element);
+        // From https://stackoverflow.com/questions/38588741/having-a-reference-to-an-element-how-to-detect-once-it-appended-to-the-document
+        if (callback instanceof Function && MutationObserver) {
+            let observer = new MutationObserver((mutations) => {
+                if (mutations[0].addedNodes.length === 0)
+                    return;
+                if (Array.prototype.indexOf.call(mutations[0].addedNodes, element[0]) === -1)
+                    return;
+                observer.disconnect();
+                callback();
+            });
+
+            observer.observe(to[0], {
+                childList: true
+            });
+        }
+        to.append(element);
     }
 
     // Method to set the jQuery element
@@ -85,10 +90,10 @@ export class Instruction {
         if (_instructionsToPreload.indexOf(this.origin)<0)
             _instructionsToPreload.push(this.origin);
         // And add the file to the current controller
-        if (!_controller.hasOwnProperty("preloadingInstructions"))
-            _controller.preloadingInstructions = [];
-        if (_controller.preloadingInstructions.indexOf(this.origin)<0)
-            _controller.preloadingInstructions.push(this.origin);
+        if (!Ctrlr.building.hasOwnProperty("preloadingInstructions"))
+            Ctrlr.building.preloadingInstructions = [];
+        if (Ctrlr.building.preloadingInstructions.indexOf(this.origin)<0)
+            Ctrlr.building.preloadingInstructions.push(this.origin);
     }
 
     // Method to set the resource
@@ -266,7 +271,7 @@ export class Instruction {
             else {
                 // If ifFailure is an instruction, run it
                 if (ifFailure instanceof Instruction) {
-                    ifFailure.parentElement = _ctrlr.element;
+                    ifFailure.parentElement = Ctrlr.running.element;
                     ifFailure.run();
                 }
                 // If ifFailure is a function, execute it
@@ -435,15 +440,15 @@ export class Instruction {
     click(callback) {
         return this.newMeta(function(){
             this.origin.clickable = true;
-            this.origin.element.addClass(_ctrlr.cssPrefix + "clickable");
+            this.origin.element.addClass(Ctrlr.running.cssPrefix + "clickable");
             let ti = this;
             this.origin.element.click(function(){
                 if (callback instanceof Instruction) {
-                    callback.parentElement = _ctrlr.element;
+                    callback.parentElement = Ctrlr.running.element;
                     callback.run();
                 }
                 else if (callback instanceof Function)
-                    callback.apply(_ctrlr.variables);
+                    callback.apply(Ctrlr.running.variables);
                 ti.done();
             });
         });
@@ -463,9 +468,9 @@ PennController.instruction = function(id) {
     if (typeof(id)!="string")
         return Abort;
     // If there's an instrution referenced as ARG while EXECUTING a controller
-    if (_ctrlr && _localInstructions[_ctrlr.id].hasOwnProperty(arg))
-        return _localInstructions[_ctrlr.id][arg];
+    if (Ctrlr.running && _localInstructions[Ctrlr.running.id].hasOwnProperty(arg))
+        return _localInstructions[Ctrlr.running.id][arg];
     // If there's an instrution referenced as ARG while CREATING a controller
-    else if (!_ctrlr && _localInstructions[_localInstructions.length-1].hasOwnProperty(arg))
+    else if (!Ctrlr.running && _localInstructions[_localInstructions.length-1].hasOwnProperty(arg))
         return _localInstructions[_localInstructions.length-1][arg];
 };

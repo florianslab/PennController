@@ -1,4 +1,7 @@
-import "./instruction.js";
+import {_autoPreloadVideos} from "../preload/preload.js";
+//import {MutationObserver} from "../controller.js";
+const MutationObserver =
+    window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
 
 // Youtube videos to load
 var _youtubeVideos = {};
@@ -17,7 +20,7 @@ $(document).ready(function(){
     //    after the API code downloads.
     var player;
     window.onYouTubeIframeAPIReady = function(){
-        for (y in _youtubeVideos) {
+        for (let y in _youtubeVideos) {
             _youtubeVideos[y].call();
         }
     }
@@ -118,12 +121,12 @@ class YTInstr extends Instruction {
         // Listen to any modification that might affect the display of the div
         observer.observe(document.body, { childList : true, attributes : true, subtree : true });
         // Add the div element to the document (any mutation is listened)
-        _addElementTo(this.element, this.parentElement);
+        this._addElement(this.parentElement);
         // If player exists, start playback
         if (ti.origin.player && ti.origin.autoPlay)
             ti._play();
         // Stop playing the video when the trial is over
-        _ctrlr.callbackBeforeFinish(function(){
+        Ctrlr.running.callbackBeforeFinish(function(){
             ti._forcePause();
         });
     }
